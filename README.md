@@ -1,4 +1,4 @@
-Step 1 : git clone https://github.com/SurajBhosale003/jobPost.git
+Step 1 : git clone https://github.com/SurajBhosale003/jobPost.git <br/>
 Step 2 : Check you are in jobpanel directory 
 Step 3 : npm install ( to install dependancies )
 Step 4 : npm run dev ( To run program ) 
