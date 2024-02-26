@@ -35,6 +35,20 @@ function JobPanel() {
 
   const handleSubmit = () => {
     // Add new job to the list
+    if (
+      !formData.jobTitle ||
+      !formData.city ||
+      !formData.country ||
+      !formData.sector ||
+      !formData.description
+    ) {
+      notification.error({
+        message: 'Incomplete Data',
+        description: 'Please fill all fields with valid data.',
+        placement: 'topRight' 
+      });
+      return; // Stop further execution
+    }
     const newJobs = [...jobs, formData];
     setJobs(newJobs);
     // Store the updated job list in local storage
