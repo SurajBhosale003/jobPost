@@ -5,6 +5,8 @@ import { notification } from 'antd';
 
 function JobPanel() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalViewOpen, setIsViewModalOpen] = useState(false);
+  const [selectedJob, setSelectedJob] = useState(null);
   const [formData, setFormData] = useState({
     jobTitle: '',
     city: '',
@@ -63,6 +65,14 @@ function JobPanel() {
   const handleSearch = (event) => {
     setSearchQuery(event.target.value);
   };
+
+  const handleViewJob = (job) => {
+    setSelectedJob(job);
+    setIsViewModalOpen(true);
+  };
+
+
+  
 
   // Filter jobs based on search query ++++++++++++++++++++++++++++++++
   const filteredJobs = jobs.filter(job =>
@@ -125,7 +135,24 @@ function JobPanel() {
                <div className='Job-Panel-card-actions'>
                 
                 {/* <Button variant="contained" color="secondary" onClick={() => handleDelete(index)}>Delete</Button> */}
-                <EyeOutlined className='view' /> 
+                <EyeOutlined className='view' onClick={() => handleViewJob(job)} />
+                <Modal open={isModalViewOpen} onClose={() => isModalViewOpen(false)} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+          <div style={{ backgroundColor: 'white', padding: 20, borderRadius: 8, width: 400 }}>
+            
+            {selectedJob && ( // Render if a job is selected
+              <div>
+                <h2>{selectedJob.jobTitle}</h2>
+              <div className='Job-Panel-card-Image'>
+                <img src="stockimage.jpg" alt="image" />
+              </div>
+                <h4>Location : {selectedJob.city}, {selectedJob.country}.</h4>
+                <h4>Sector : {selectedJob.sector}</h4>
+                <h4>Job description : {selectedJob.description}</h4>
+              </div>
+            )}
+            <Button variant="contained" color="primary" onClick={() =>  setIsViewModalOpen(false)}>Close</Button>
+          </div>
+        </Modal>
                 <DeleteOutlined className='delete' onClick={() => handleDelete(index)} />
                 {/* Add view icon here */}
               </div>
